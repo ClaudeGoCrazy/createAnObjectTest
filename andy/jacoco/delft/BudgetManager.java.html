@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>BudgetManager.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">delft.BudgetManagerTest</a> &gt; <a href="index.source.html" class="el_package">delft</a> &gt; <span class="el_source">BudgetManager.java</span></div><h1>BudgetManager.java</h1><pre class="source lang-java linenums">package delft;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
+public class BudgetManager {
+
+	// Inner class to represent an Expense
+	static class Expense {
+		String category;
+		String description;
+		double amount;
+
+		public Expense(String category, String description, double amount) {
+			this.category = category;
+			this.description = description;
+			this.amount = amount;
+		}
+
+		@Override
+		public String toString() {
+			return &quot;Category: &quot; + category + &quot;, Description: &quot; + description + &quot;, Amount: $&quot; + amount;
+		}
+	}
+
+	// Inner class to represent a Report
+	static class Report {
+		HashMap&lt;String, Double&gt; categoryTotals;
+		double totalSpent;
+
+		public Report(HashMap&lt;String, Double&gt; categoryTotals, double totalSpent) {
+			this.categoryTotals = categoryTotals;
+			this.totalSpent = totalSpent;
+		}
+
+		@Override
+		public String toString() {
+			StringBuilder reportBuilder = new StringBuilder(&quot;Expense Report:\n&quot;);
+			for (String category : categoryTotals.keySet()) {
+				reportBuilder.append(String.format(&quot;Category: %s, Total: $%.2f%n&quot;, category, categoryTotals.get(category)));
+			}
+			reportBuilder.append(String.format(&quot;Total Spent: $%.2f%n&quot;, totalSpent));
+			return reportBuilder.toString();
+		}
+	}
+
+	private List&lt;Expense&gt; expenses;
+	private HashMap&lt;String, Double&gt; plannedMonthlyBudget;
+
+<span class="fc" id="L50">	public BudgetManager() {</span>
+<span class="fc" id="L51">		this.expenses = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L52">		this.plannedMonthlyBudget = new HashMap&lt;&gt;();</span>
+<span class="fc" id="L53">	}</span>
+
+	// Add a new expense
+	public void addExpense(String category, String description, double amount) {
+<span class="fc" id="L57">		expenses.add(new Expense(category, description, amount));</span>
+<span class="fc" id="L58">	}</span>
+
+	// Plan a monthly budget for a category
+	public void planMonthlyBudget(String category, double amount) {
+<span class="fc" id="L62">		plannedMonthlyBudget.put(category, amount);</span>
+<span class="fc" id="L63">	}</span>
+
+	// Generate a summary report
+	public Report generateReport() {
+<span class="fc" id="L67">		HashMap&lt;String, Double&gt; categoryTotals = new HashMap&lt;&gt;();</span>
+<span class="fc" id="L68">		double totalSpent = 0;</span>
+
+<span class="fc bfc" id="L70" title="All 2 branches covered.">		for (Expense expense : expenses) {</span>
+<span class="fc" id="L71">			categoryTotals.put(</span>
+					expense.category,
+<span class="fc" id="L73">					categoryTotals.getOrDefault(expense.category, 0.0) + expense.amount</span>
+			);
+<span class="fc" id="L75">			totalSpent += expense.amount;</span>
+<span class="fc" id="L76">		}</span>
+
+<span class="fc" id="L78">		return new Report(categoryTotals, totalSpent);</span>
+	}
+
+	// Generate a 6-month plan report
+	public String generateSixMonthPlan() {
+<span class="fc" id="L83">		StringBuilder planBuilder = new StringBuilder(&quot;6-Month Budget Plan:\n&quot;);</span>
+<span class="fc" id="L84">		double totalPlanned = 0;</span>
+
+<span class="fc bfc" id="L86" title="All 2 branches covered.">		for (String category : plannedMonthlyBudget.keySet()) {</span>
+<span class="fc" id="L87">			double monthlyAmount = plannedMonthlyBudget.get(category);</span>
+<span class="fc" id="L88">			double sixMonthAmount = monthlyAmount * 6;</span>
+<span class="fc" id="L89">			planBuilder.append(String.format(&quot;Category: %s, Monthly Budget: $%.2f, 6-Month Budget: $%.2f%n&quot;,</span>
+<span class="fc" id="L90">					category, monthlyAmount, sixMonthAmount));</span>
+<span class="fc" id="L91">			totalPlanned += sixMonthAmount;</span>
+<span class="fc" id="L92">		}</span>
+
+<span class="fc" id="L94">		planBuilder.append(String.format(&quot;Total Planned Budget for 6 Months: $%.2f&quot;, totalPlanned));</span>
+<span class="fc" id="L95">		return planBuilder.toString();</span>
+	}
+
+	// Get all expenses as a list
+	public List&lt;Expense&gt; getExpenses() {
+<span class="fc" id="L100">		return new ArrayList&lt;&gt;(expenses); // Return a copy to prevent external modification</span>
+	}
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>
