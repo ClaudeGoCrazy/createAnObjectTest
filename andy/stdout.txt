@@ -4,7 +4,7 @@ Andy v0.28-575d45a (2022-05-03T17:35:52+0200)
 Success
 
 --- JUnit execution
-5/5 passed
+7/7 passed
 
 --- JaCoCo coverage
 Line coverage: 28/28
@@ -28,19 +28,18 @@ Meta tests: 0/0 (overall weight=0.00)
 
 Final grade: 100/100
 
- __________________
-/                  \
-| Super congrats!  |
-\____________  __'\
-             |/   \\
-              \    \\  .
-                   |\\/|
-                   / " '\
-                   . .   .
-                  /    ) |
-                 '  _.'  |
-                 '-'/    \
+          __   _,--="=--,_   __
+         /  \."    .-.    "./  \
+        /  ,/  _   : :   _  \/` \
+        \  `| /o\  :_:  /o\ |\__/
+         `-'| :="~` _ `~"=: |
+            \`     (_)     `/
+     .-"-.   \      |      /   .-"-.
+.---{     }--|  /,.-'-.,\  |--{     }---.
+ )  (_)_)_)  \_/`~-===-~`\_/  (_(_(_)  (
+(            Super congrats!            )
+ )                                     (
+'---------------------------------------'
 
 
-
-Andy is running in PRACTICE mode and took 4.3 seconds to assess your solution.
+Andy is running in PRACTICE mode and took 2.6 seconds to assess your solution.
